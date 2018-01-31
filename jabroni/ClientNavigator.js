@@ -11,6 +11,7 @@ import VideoChat from './VideoChat.js'
 import DailyInputs from './DailyInputs.js'
 import TeamScreen from './TeamScreen.js'
 import PlanScreen from './PlanScreen.js'
+import Camera from './Camera.js'
 
 const ProfileNavigator = new SwipeNavigator({
 
@@ -25,13 +26,18 @@ const ProfileNavigator = new SwipeNavigator({
     type: 'over'
   },
 
+  Camera: {
+    screen: Camera,
+    type: 'push',
+  },
+
   DailyInputs: {
-  screen: DailyInputs,
-  // right: 'DailyDiet',
-  top: 'Profile',
-  // left: 'DailyWorkouts',
-  color: '#FFFFFF',
-  type: 'push'
+    screen: DailyInputs,
+    // right: 'DailyDiet',
+    top: 'Profile',
+    // left: 'DailyWorkouts',
+    color: '#FFFFFF',
+    type: 'push'
   },
 
   DailyWorkouts: {

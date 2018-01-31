@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Dimensions
 import Chat from './chatIcon'
 import FooterNav from './FooterNav.js'
 import SVG from './SVG/svg5Center.js'
-
+import Camera from './Camera.js'
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,7 +12,6 @@ class Profile extends React.Component {
     super(props);
     this.onPress=this.onPress.bind(this);
   }
-
 
   componentDidMount() {
     this.props.nav.cleanUp()
@@ -24,16 +23,17 @@ class Profile extends React.Component {
 
   onPress(e){
     e.preventDefault();
-    console.log('you clicked the image!');
+    this.props.nav.navigate('Camera')
   }
 
   render() {
+    console.log('this.state: ', this.state, 'this.props.nav: ', this.props.nav);
     return (
       <View style={{flexDirection:'column', width:width, height:height, backgroundColor: 'white'}}>
         <View style={{flex:1}}>
           <SVG />
         </View>  
-        <TouchableOpacity style={styles.circleContainer} onPress={this.onPress}>
+        <TouchableOpacity style={styles.circleContainer} onPress={this.onPress} nav={this.props.nav}>
           {/*<View style={styles.circle}/>*/}
           <Image style={styles.circle} source={require('../images/tearingMeApart.jpeg')} />
         </TouchableOpacity>
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     width: 250,
     height: 250,
     borderRadius: 250/2,
-    backgroundColor: 'red'
   },
 
   circleContainer: {
@@ -80,6 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   }
-})
+});
 
 export default Profile

@@ -85,18 +85,8 @@ class SignUpScreen extends React.Component {
     super(props);
     this.state = {
     }
-    this.signUp = this.signUp.bind(this);
     this.onPress = this.onPress.bind(this)
 
-  }
-
-  signUp(e){
-    e.preventDefault();
-    // make axios request to server to get userID
-    // axios.get('/users', {u: e.target..., p: e.target....}).then...
-    console.log('LOG IN');
-    // navigate to clientHomeScreen
-    this.props.navigation.dispatch(resetAction);
   }
 
   onPress() {
@@ -114,8 +104,6 @@ class SignUpScreen extends React.Component {
         }
       })
       this.props.navigation.dispatch(resetAction);
-    }else{
-
     }
   }
 
@@ -123,10 +111,7 @@ class SignUpScreen extends React.Component {
     const buttons = ['Trainer', 'Client']
     const { selectedIndex } = this.state
     console.log('SignUpScreen props: ', this.props.navigation);
-    return (
-    
-      // <View style={styles.container}>
-      
+    return (      
         <ScrollView style={styles.scrollView}>
           <Form
             ref="form"
@@ -142,7 +127,6 @@ class SignUpScreen extends React.Component {
           }}/>
           <View style={{marginBottom: 25}}/>
         </ScrollView>
-      //  </View>)
     )
 
   }
@@ -193,76 +177,4 @@ const m = gql`
   }
 `
 
-
-
 export default graphql(m)(SignUpScreen);
-
-
-
-
-    // <View>
-    //   <Text>Signup form... CHANGE</Text>
-
-    //   <Form
-    //       ref="form"
-    //       type={Person}
-    //       // options={options}
-    //     />
-
-    //   <FormLabel>Name</FormLabel>
-    //   <FormInput ref="nameInput" onChangeText={(text)=>{this.setState({name: text})}}/>
-    //   <FormValidationMessage>
-    //     {this.state.err}
-    //   </FormValidationMessage>
-
-    //   <FormLabel>E-mail</FormLabel>      
-    //   <FormInput ref="EnameInput" onChangeText={(text)=>{this.setState({email: text})}}/>
-    //   <FormValidationMessage>
-    //     error
-    //   </FormValidationMessage>
-
-    //   <FormLabel>Who Are You</FormLabel>      
-    //   <ButtonGroup
-    //     onPress={this.updateIndex}
-    //     selectedIndex={selectedIndex}
-    //     buttons={buttons}
-    //     containerStyle={{height: 50}}
-    //   />
-    //   <FormLabel >Password</FormLabel>      
-    //   <FormInput ref="passworInput" onChangeText={(text)=>{this.setState({password: text})}}/>
-    //   <FormValidationMessage>
-    //     {this.state.err}
-    //   </FormValidationMessage>
-
-    //   <FormLabel>Re-Enter Password</FormLabel>      
-    //   <FormInput ref="repasswordInput" onChangeText={(text)=>{this.setState({email: text})}}/>
-    //   <FormValidationMessage>
-    //     {this.state.err}
-    //   </FormValidationMessage>
-
-
-    //   <Button title="sign up" onPress={this.signUp} />
-
-    // </View>)
-
-
-
-
-      // updateIndex (selectedIndex) {
-  //   this.setState({selectedIndex})
-  // }
-
-  // onChange(value) {
-  //   // recalculate the type only if strictly necessary
-  //   const type = value.country !== this.state.value.country ?
-  //     this.getType(value) :
-  //     this.state.type;
-  //   this.setState({ value, type });
-  // }
-
-
-    // errorHandler() {
-  //   if (this.state.err) {
-  //     this.formInput.shake()
-  //   }
-  // }
