@@ -72,35 +72,14 @@ class Photos extends React.Component {
 		xhr.send();
 	}
 
-	// save(e) {
- //    e.preventDefault();
- //    // use id to set up path in firebase storage for this user's pictures
- //    let folder = imageStore.child(this.state.userID.toString());
- //    let fileName = this.state.pic.exif.DateTimeOriginal; // timestamp
-
- //    // save image to fireStore
- //    let address = folder.child(fileName);
- //    address.putString(this.state.pic.base64).then((snapshot) => {
- //      // save reference to file in firebase database so it can be downloaded later:
- //      database.ref('imgURLs').child(this.state.userID.toString()).push().set({
- //        name: fileName
- //      });
-
- //      this.setState({
- //        reviewMode: false,
- //        pic: null
- //      });
- //    }).catch(err => {
- //      console.log('firebase save error: ', err);
- //    })
- //  }
-
 	setProfPic(e) {
 		e.preventDefault();
 		// use this.state.index to write profile picture to firebase storage:
 		let pic = this.state.photos[this.state.index]; // a tuple - idx 1 is the base64 string
 		imageStore.ref('images/'+this.state.userID.toString()).child('profilePicture').putString(pic[1]).then(() => {
 			console.log('saved profile picture to firebase storage.');
+			// save pic to async storage as well to improve load time later:
+			AsyncStorage.setItem('@FitApp:profilePicture', pic[1]);
 		});
 	}
 
