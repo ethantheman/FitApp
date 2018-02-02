@@ -13,7 +13,7 @@ class Profile extends React.Component {
     super(props)
     this.state = {
       profPic: require('../../images/muscle.gif'),
-      userInfo: {}
+      userInfo: {},
     }
     this.downloadPic = this.downloadPic.bind(this);
   }
@@ -26,18 +26,9 @@ class Profile extends React.Component {
         let id = JSON.parse(val).id;
         this.setState({userInfo: JSON.parse(val)}); // store info for rendering
         // use id to download profile picture
-        AsyncStorage.getItem('@FitApp:profilePicture', (err, val) => {
-          if ( err ) {console.log('error retrieving profile picture from async storage.')}
-          else {
-            if ( !val ) {
-              imageStore.ref('/images/'+id+'/profilePicture').getDownloadURL().then((url) => {
-                this.downloadPic(url);
-              });
-            } else {
-              this.setState({ profPic: { uri: `data:image/jpg;base64,${val}`}})
-            }
-          }
-        })
+        imageStore.ref('/images/'+id+'/profilePicture').getDownloadURL().then((url) => {
+          this.downloadPic(url);
+        });
       }
     })
   }
@@ -62,20 +53,18 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log('profile data: ', this.state.userInfo);
     return ( 
       <View style={{flexDirection:'column', width:width, height:height, backgroundColor: 'white'}}>
         <View style={{flex:1}}>
           <SVG />
         </View>  
+        <Text style={styles.fullName}>{this.state.userInfo.fullName}</Text>
         <TouchableOpacity style={styles.circleContainer} onPress={this.onPress}>
-          {/*<View style={styles.circle}/>*/}
           <Image style={styles.circle} source={this.state.profPic} />
         </TouchableOpacity>
           <View style={{flex: 2}}>
-            <Text style={{fontSize: 30, marginBottom: 50, textAlign:'center'}}>{this.state.userInfo.fullName}</Text>
-            <Text style={{padding: 5, textAlign:'center'}}>Swipe left for your diet!</Text>
-            <Text style={{padding: 5, textAlign:'center'}}>Swipe right for your daily inputs and progress stuff!</Text>
+            <Text style={styles.textBox}>Swipe left for your diet!</Text>
+            <Text style={styles.textBox}>Swipe right for your daily inputs and progress stuff!</Text>
             <Chat nav={this.props.nav}/>
           </View>
           <FooterNav nav={this.props.nav} index={0} />
@@ -106,9 +95,22 @@ const styles = StyleSheet.create({
     borderRadius: 250/2
   },
   circleContainer: {
-    flex: 1,
+    flex: 3,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  fullName:  {
+    flex: 0,
+    fontSize: 30,
+    marginBottom: 15, 
+    textAlign:'center'
+  },
+  textBox: {
+    flexDirection: 'row',
+    flex: 0,
+    textAlign:'center',
+    marginBottom: 5,
+    fontSize: 20
   }
 });
 

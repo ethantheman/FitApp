@@ -74,12 +74,11 @@ class Photos extends React.Component {
 
 	setProfPic(e) {
 		e.preventDefault();
-		// use this.state.index to write profile picture to firebase storage:
 		let pic = this.state.photos[this.state.index]; // a tuple - idx 1 is the base64 string
 		imageStore.ref('images/'+this.state.userID.toString()).child('profilePicture').putString(pic[1]).then(() => {
 			console.log('saved profile picture to firebase storage.');
 			// save pic to async storage as well to improve load time later:
-			AsyncStorage.setItem('@FitApp:profilePicture', pic[1]);
+			// AsyncStorage.setItem('@FitApp:profilePicture', pic[1]); // there were problems reading from asyncStorage, so scrapping for now.
 		});
 	}
 
