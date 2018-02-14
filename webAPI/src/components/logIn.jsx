@@ -18,7 +18,7 @@ import {
 import gql from 'graphql-tag';
 import { Dropdown, Grid, Item, Image, Menu, Segment, Form,Icon, Button, Header, Modal } from 'semantic-ui-react'
 
-// const s3 = require('../../utilities/s3_utilities.js');
+const s3 = require('../../utilities/s3_utilities.js');
 const _ = require('underscore');
 const q = gql`
   query loginUser($username: String!, $password: String!){
@@ -194,7 +194,7 @@ class LogIn extends React.Component{
         console.log('whats this dumb thing', Exercise_Plan)
         // get list of photo keys
         console.log('id: ', data.loginUser.id);
-        let payload = {
+        // let payload = {
         s3.getPhotosList(data.loginUser.id).then((list) => {
           console.log('list: ', list);
           let l = _.pluck(list, 'key');
