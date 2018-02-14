@@ -1,3 +1,8 @@
+// import { PubSub, withFilter } from ‘graphql-subscriptions’;
+let PubSub = require('graphql-subscriptions').PubSub;
+let withFilter = require('graphql-subscriptions').withFilter;
+const pubsub = new PubSub();
+
 module.exports = {
 	Query: {
 		loginUser: (parent, { username, password }, db) => {
@@ -35,6 +40,9 @@ module.exports = {
 		getUsersByFullName: (parent, {fullName}, db) => {
 			return db.getUsersByFullName(fullName);
 		},
+		getUserByID: (parent, {id}, db) => {
+			return db.getUserByID(id);
+		},
 		getChatRoomsByRoomId: (parent, {room_id}, db) => {
 			// console.log('resolver has id: ', id);
 			return db.getChatRoomsByRoomId(room_id);
@@ -55,8 +63,13 @@ module.exports = {
 		setDietPlan: (parent, obj, db) => {
 			return db.setDietPlan(obj);
 		},
-		setSpotter: (parent, obj, db) => {
-			return db.setSpotter(obj);
+		setSpotter: async (parent, obj, db) => {
+			// let result = {};
+			spotter = await db.setSpotter(obj);
+			console.log('we are running setSpotter: ', spotter);
+			pubsub.publish('userSubscription', {'userSubscription': spotter})
+
+			return spotter;
 		},
 		setDailyRecord: (parent, obj, db) => {
 			return db.setDailyRecord(obj);
@@ -69,6 +82,21 @@ module.exports = {
 		},
 		connectionRequest:(parent, obj, db) => {
 			return db.connectionRequest(obj);
+		}
+	},
+
+	Subscription: {
+		userSubscription: {
+			subscribe: withFilter(
+				(...args) => {
+					console.log('WHAT IS DIS', ...args);
+					return pubsub.asyncIterator('userSubscription');
+				},
+				(payload, variables) => {
+					console.log('payload: ', payload, 'variables: ', variables);
+					return true;
+				}
+				)
 		}
 	},
 

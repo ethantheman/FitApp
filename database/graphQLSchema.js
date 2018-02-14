@@ -68,6 +68,7 @@ module.exports = `
 		getChatRooms(id: Int!): [Chat_Room]
 		getChatRoomsByRoomId(room_id: String!): [Chat_Room]
 		getUsersByFullName(fullName: String!): [User]
+		getUserByID(id: Int!): User
 	}
 	
 	type Mutation {
@@ -80,5 +81,9 @@ module.exports = `
 		setDailyRecord(user_id: Int!, data: String!): Daily_Record
 		setPersonalRecord(user_id: Int!, data: String!): Personal_Record
 		setChatRoom(room_id: String!, user_id: Int!): Chat_Room
+	}
+
+	type Subscription {
+		userSubscription(user_id: Int!): User
 	}
 	`
