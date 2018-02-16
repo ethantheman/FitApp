@@ -29,7 +29,8 @@ export default function authReducer (state={
 				user: action.payload.fullName,
 				goals: action.payload.goals,
 				connection_requests: JSON.parse(action.payload.connection_requests),
-				photoKeys: action.payload.photoKeys
+				photoKeys: action.payload.photoKeys,
+				profile_data: action.payload.profile_data
 			}
 		}
 

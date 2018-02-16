@@ -232,7 +232,8 @@ class LogIn extends React.Component{
             spotters: data.loginUser.Spotter,
             goals: JSON.parse(data.loginUser.profile_data).goals,
             connection_requests: data.loginUser.connection_requests,
-            photoKeys: fixedList
+            photoKeys: fixedList,
+            profile_data: JSON.parse(data.loginUser.profile_data)
           }
           console.log('whats the payload', payload)
           this.props.dispatch(Auth(payload))

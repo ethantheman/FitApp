@@ -103,7 +103,7 @@ render() {
     <div style={{padding: '3%', backgroundColor:'white', height:'100%'}}>
       <Grid columns={2} centered style={{height: '90%', backgroundColor:'#f6f6f6', padding: '3%'}}>
         <Grid.Column centered style={{alignItems: 'center', width:'40%'}}>
-          <Image src={this.state.brand.profileImg} size='small'/>  
+          <Image avatar src={this.state.store.profile_data.profilePictureURL} size='small' style={{transform: "rotate(90deg)"}}/>  
           <h1 style={{marginBottom: 0}}>      
             {this.state.store.fullName}
           </h1>
